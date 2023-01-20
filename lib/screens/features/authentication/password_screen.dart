@@ -70,7 +70,9 @@ class _PasswordScreenState extends State<PasswordScreen> {
           title: const Text('Sign up'),
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Sizes.size36),
+          padding: const EdgeInsets.symmetric(
+            horizontal: Sizes.size36,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
