@@ -18,15 +18,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     const Center(
       child: Text('Search'),
     ),
-    const Center(
-      child: Text('Home'),
-    ),
-    const Center(
-      child: Text('Search'),
-    ),
-    const Center(
-      child: Text('Home'),
-    ),
   ];
 
   void _onTap(int index) {
@@ -39,36 +30,24 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[_selectIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectIndex,
-        onTap: _onTap,
-        selectedItemColor: Theme.of(context).primaryColor,
-        items: const [
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.house),
+      bottomNavigationBar: NavigationBar(
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        selectedIndex: _selectIndex,
+        onDestinationSelected: _onTap,
+        destinations: const [
+          NavigationDestination(
+            icon: FaIcon(
+              FontAwesomeIcons.house,
+              color: Colors.white,
+            ),
             label: 'Home',
-            tooltip: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.magnifyingGlass),
+          NavigationDestination(
+            icon: FaIcon(
+              FontAwesomeIcons.magnifyingGlass,
+              color: Colors.white,
+            ),
             label: 'Search',
-            tooltip: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.house),
-            label: 'Home',
-            tooltip: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.magnifyingGlass),
-            label: 'Search',
-            tooltip: 'Search',
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.house),
-            label: 'Home',
-            tooltip: 'Home',
           ),
         ],
       ),
