@@ -14,14 +14,6 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _selectIndex = 0;
 
-  final screens = [
-    StfScreen(key: GlobalKey()),
-    StfScreen(key: GlobalKey()),
-    Container(),
-    StfScreen(key: GlobalKey()),
-    StfScreen(key: GlobalKey()),
-  ];
-
   void _onTap(int index) {
     setState(() {
       _selectIndex = index;
@@ -31,7 +23,26 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens.elementAt(_selectIndex),
+      body: Stack(
+        children: [
+          Offstage(
+            offstage: _selectIndex != 0,
+            child: const StfScreen(),
+          ),
+          Offstage(
+            offstage: _selectIndex != 1,
+            child: const StfScreen(),
+          ),
+          Offstage(
+            offstage: _selectIndex != 3,
+            child: const StfScreen(),
+          ),
+          Offstage(
+            offstage: _selectIndex != 4,
+            child: const StfScreen(),
+          ),
+        ],
+      ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.black,
         child: Padding(
