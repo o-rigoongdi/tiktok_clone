@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
@@ -22,7 +21,8 @@ class DiscoverScreen extends StatefulWidget {
 }
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
-  final TextEditingController _textEditingController = TextEditingController(text: 'Initial value');
+  final TextEditingController _textEditingController = TextEditingController();
+  bool _isWriting = false;
 
   void _onSearchChanged(String value) {
     print('Search changed: $value');
@@ -38,6 +38,20 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     super.dispose();
   }
 
+  void _onStartWriting() {
+    setState(() {
+      _isWriting = true;
+    });
+  }
+
+  void _stopWriting() {
+    FocusScope.of(context).unfocus();
+    setState(() {
+      _textEditingController.clear();
+      _isWriting = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -46,12 +60,81 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           elevation: 1,
-          title: CupertinoSearchTextField(
+          title: SizedBox(
+            height: Sizes.size36,
+            child: TextField(
+              controller: _textEditingController,
+              onTap: _onStartWriting,
+              expands: true,
+              minLines: null,
+              maxLines: null,
+              textInputAction: TextInputAction.newline,
+              cursorColor: Theme.of(context).primaryColor,
+              decoration: InputDecoration(
+                hintText: 'Search',
+                hintStyle: TextStyle(
+                  fontSize: Sizes.size16,
+                  color: Colors.grey.shade500,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(Sizes.size6),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+                fillColor: Colors.grey.shade100,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: Sizes.size10,
+                ),
+                prefixIconConstraints: const BoxConstraints(
+                  minWidth: 30,
+                ),
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.only(
+                    left: Sizes.size8,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      FaIcon(
+                        FontAwesomeIcons.magnifyingGlass,
+                        color: Colors.grey.shade500,
+                        size: Sizes.size16 + Sizes.size2,
+                      ),
+                    ],
+                  ),
+                ),
+                suffixIconConstraints: const BoxConstraints(
+                  minWidth: 30,
+                ),
+                suffixIcon: Padding(
+                  padding: const EdgeInsets.only(
+                    right: Sizes.size8,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (_isWriting)
+                        GestureDetector(
+                          onTap: _stopWriting,
+                          child: FaIcon(
+                            FontAwesomeIcons.solidCircleXmark,
+                            color: Colors.grey.shade500,
+                            size: Sizes.size16 + Sizes.size2,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+/*           title: CupertinoSearchTextField(
             controller: _textEditingController,
             onChanged: _onSearchChanged,
             onSubmitted: _onSearchSubmitted,
-          ),
+          ), */
           bottom: TabBar(
+            onTap: (value) => FocusManager.instance.primaryFocus?.unfocus(),
             splashFactory: NoSplash.splashFactory,
             padding: const EdgeInsets.symmetric(
               horizontal: Sizes.size16,
