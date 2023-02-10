@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
@@ -22,7 +23,7 @@ class DiscoverScreen extends StatefulWidget {
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
   final TextEditingController _textEditingController = TextEditingController();
-  bool _isWriting = false;
+  final bool _isWriting = false;
 
   void _onSearchChanged(String value) {
     print('Search changed: $value');
@@ -38,7 +39,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     super.dispose();
   }
 
-  void _onStartWriting() {
+/*   void _onStartWriting() {
     setState(() {
       _isWriting = true;
     });
@@ -50,7 +51,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
       _textEditingController.clear();
       _isWriting = false;
     });
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           elevation: 1,
-          title: SizedBox(
+          /* itle: SizedBox(
             height: Sizes.size36,
             child: TextField(
               controller: _textEditingController,
@@ -127,12 +128,12 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                 ),
               ),
             ),
-          ),
-/*           title: CupertinoSearchTextField(
+          ), */
+          title: CupertinoSearchTextField(
             controller: _textEditingController,
             onChanged: _onSearchChanged,
             onSubmitted: _onSearchSubmitted,
-          ), */
+          ),
           bottom: TabBar(
             onTap: (value) => FocusManager.instance.primaryFocus?.unfocus(),
             splashFactory: NoSplash.splashFactory,
