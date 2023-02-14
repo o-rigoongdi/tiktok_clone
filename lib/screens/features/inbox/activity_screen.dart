@@ -43,9 +43,11 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
     }
   ];
 
+  bool _showBarrier = false;
+
   late final AnimationController _animationController = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 200),
+    duration: const Duration(milliseconds: 400),
   );
 
   late final Animation<double> _arrowAnimation = Tween(
@@ -58,17 +60,26 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
     end: Offset.zero,
   ).animate(_animationController);
 
+  late final Animation<Color?> _barrierAnimation = ColorTween(
+    begin: Colors.transparent,
+    end: Colors.black38,
+  ).animate(_animationController);
+
   void _onDismissed(String notification) {
     _notifications.remove(notification);
     setState(() {});
   }
 
-  void _onTitleTap() {
+  void _toggleAnimation() async {
     if (_animationController.isCompleted) {
-      _animationController.reverse();
+      await _animationController.reverse();
     } else {
       _animationController.forward();
     }
+
+    setState(() {
+      _showBarrier = !_showBarrier;
+    });
   }
 
   @override
@@ -76,7 +87,7 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
     return Scaffold(
       appBar: AppBar(
         title: GestureDetector(
-          onTap: _onTitleTap,
+          onTap: _toggleAnimation,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -195,6 +206,12 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
                 )
             ],
           ),
+          if (_showBarrier)
+            AnimatedModalBarrier(
+              color: _barrierAnimation,
+              dismissible: true,
+              onDismiss: _toggleAnimation,
+            ),
           SlideTransition(
             position: _panelAnimation,
             child: Container(
@@ -234,7 +251,7 @@ class _ActivityScreenState extends State<ActivityScreen> with SingleTickerProvid
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
