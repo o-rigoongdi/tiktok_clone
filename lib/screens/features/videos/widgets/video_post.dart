@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
@@ -26,6 +27,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
   bool _isPaused = false;
   final Duration _animationDuration = const Duration(milliseconds: 200);
   late final AnimationController _animationController;
+  bool _isMuted = false;
 
   void _onVideoChange() {
     if (_videoPlayerController.value.isInitialized) {
@@ -39,8 +41,12 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
     _videoPlayerController = VideoPlayerController.asset('assets/videos/video.mp4');
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
-    setState(() {});
+    if (kIsWeb) {
+      _isMuted = true;
+      await _videoPlayerController.setVolume(0);
+    }
     _videoPlayerController.addListener(_onVideoChange);
+    setState(() {});
   }
 
   @override
@@ -62,6 +68,7 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
   @override
   void dispose() {
     _videoPlayerController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 
@@ -99,6 +106,17 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
       builder: (context) => const VideoComments(),
     );
     _onTogglePause();
+  }
+
+  void _onVolumeTap() {
+    if (_videoPlayerController.value.volume == 0) {
+      _videoPlayerController.setVolume(1);
+    } else {
+      _videoPlayerController.setVolume(0);
+    }
+    setState(() {
+      _isMuted = !_isMuted;
+    });
   }
 
   @override
@@ -180,6 +198,13 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
                   foregroundColor: Colors.white,
                   foregroundImage: NetworkImage('https://avatars.githubusercontent.com/u/29852320?s=400&u=a64dc19ce958d91b81e109642f5d6b913317dae9&v=4'),
                   child: Text('니꼬'),
+                ),
+                Gaps.v24,
+                GestureDetector(
+                  onTap: () => _onVolumeTap(),
+                  child: VideoButton(
+                    icon: _isMuted ? FontAwesomeIcons.volumeOff : FontAwesomeIcons.volumeHigh,
+                  ),
                 ),
                 Gaps.v24,
                 const VideoButton(

@@ -10,7 +10,7 @@ class VideoButton extends StatelessWidget {
   const VideoButton({
     super.key,
     required this.icon,
-    required this.text,
+    this.text = '',
   });
 
   @override
