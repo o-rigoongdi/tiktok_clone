@@ -31,7 +31,10 @@ class LoginScreen extends StatelessWidget {
               Gaps.v80,
               Text(
                 'Log in for TikTok',
-                style: Theme.of(context).textTheme.headlineSmall,
+                style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      fontSize: Sizes.size24,
+                      fontWeight: FontWeight.w700,
+                    ),
               ),
               Gaps.v20,
               const Text(
@@ -60,10 +63,11 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.grey.shade50,
         elevation: 2,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: Sizes.size32),
+          padding: const EdgeInsets.symmetric(
+            vertical: Sizes.size32,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

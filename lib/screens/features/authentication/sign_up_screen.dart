@@ -39,14 +39,17 @@ class SignUpScreen extends StatelessWidget {
         return Scaffold(
           body: SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Sizes.size40),
+              padding: const EdgeInsets.symmetric(
+                horizontal: Sizes.size40,
+              ),
               child: Column(
                 children: [
                   Gaps.v80,
                   Text(
                     'Sign up for TikTok',
                     style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                          color: Colors.black,
+                          fontSize: Sizes.size24,
+                          fontWeight: FontWeight.w700,
                         ),
                   ),
                   Gaps.v20,
