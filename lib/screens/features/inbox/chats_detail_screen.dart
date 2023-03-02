@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/screens/features/utils.dart';
 
 class ChatsDetailScreen extends StatefulWidget {
   const ChatsDetailScreen({super.key});
@@ -41,6 +42,8 @@ class _ChatsDetailScreenState extends State<ChatsDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = isDarkMode(context);
+
     return Scaffold(
       appBar: AppBar(
         title: ListTile(
@@ -136,11 +139,14 @@ class _ChatsDetailScreenState extends State<ChatsDetailScreen> {
           Positioned(
             bottom: 0,
             width: MediaQuery.of(context).size.width,
-            child: BottomAppBar(
-              color: Colors.grey.shade50,
+            child: Container(
+              color: Theme.of(context).scaffoldBackgroundColor,
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: Sizes.size4,
+                padding: const EdgeInsets.only(
+                  left: Sizes.size16,
+                  right: Sizes.size16,
+                  top: Sizes.size10,
+                  bottom: Sizes.size48,
                 ),
                 child: Row(
                   children: [
@@ -154,7 +160,7 @@ class _ChatsDetailScreenState extends State<ChatsDetailScreen> {
                         minLines: null,
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: Colors.white,
+                          fillColor: isDark ? Colors.grey.shade800 : Colors.grey.shade200,
                           contentPadding: EdgeInsetsGeometry.lerp(
                             const EdgeInsets.symmetric(
                               horizontal: Sizes.size12,
@@ -165,9 +171,6 @@ class _ChatsDetailScreenState extends State<ChatsDetailScreen> {
                             0.5,
                           ),
                           hintText: 'Type a message',
-                          hintStyle: TextStyle(
-                            color: Colors.grey.shade300,
-                          ),
                           border: const OutlineInputBorder(
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(Sizes.size20),
@@ -182,7 +185,7 @@ class _ChatsDetailScreenState extends State<ChatsDetailScreen> {
                             heightFactor: 1.0,
                             child: FaIcon(
                               FontAwesomeIcons.faceSmile,
-                              color: Colors.grey.shade800,
+                              color: isDark ? Colors.grey.shade500 : Colors.grey.shade900,
                             ),
                           ),
                           // contentPadding: const EdgeInsets.symmetric(
@@ -198,7 +201,7 @@ class _ChatsDetailScreenState extends State<ChatsDetailScreen> {
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
+                          color: Colors.grey.shade500,
                           shape: BoxShape.circle,
                         ),
                         child: const Padding(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
-import 'package:tiktok_clone/screens/features/main_navigation/main_navigation_screen.dart';
+import 'package:tiktok_clone/screens/features/authentication/sign_up_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +24,7 @@ class TikTokApp extends StatelessWidget {
       title: 'TikTok Clone',
       themeMode: ThemeMode.system,
       theme: ThemeData(
+        useMaterial3: true,
         brightness: Brightness.light,
         textTheme: Typography.blackMountainView,
         primaryColor: const Color(0xFFE9435A),
@@ -37,6 +38,7 @@ class TikTokApp extends StatelessWidget {
           color: Colors.grey.shade50,
         ),
         appBarTheme: const AppBarTheme(
+          surfaceTintColor: Colors.black,
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
           elevation: 0,
@@ -56,6 +58,7 @@ class TikTokApp extends StatelessWidget {
         ),
       ),
       darkTheme: ThemeData(
+        useMaterial3: true,
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: Color(0xFFE9435A),
         ),
@@ -66,14 +69,28 @@ class TikTokApp extends StatelessWidget {
           color: Colors.grey.shade900,
         ),
         primaryColor: const Color(0xFFE9435A),
-        tabBarTheme: const TabBarTheme(
+        tabBarTheme: TabBarTheme(
           indicatorColor: Colors.white,
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.grey.shade700,
         ),
         appBarTheme: AppBarTheme(
+          surfaceTintColor: Colors.grey.shade900,
           backgroundColor: Colors.grey.shade900,
+          titleTextStyle: const TextStyle(
+            color: Colors.white,
+            fontSize: Sizes.size16 + Sizes.size2,
+            fontWeight: FontWeight.w600,
+          ),
+          actionsIconTheme: IconThemeData(
+            color: Colors.grey.shade100,
+          ),
+          iconTheme: IconThemeData(
+            color: Colors.grey.shade100,
+          ),
         ),
       ),
-      home: const MainNavigationScreen(),
+      home: const SignUpScreen(),
     );
   }
 }

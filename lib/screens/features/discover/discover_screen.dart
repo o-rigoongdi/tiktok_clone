@@ -104,13 +104,13 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               itemCount: 20,
               padding: const EdgeInsets.all(
-                Sizes.size6,
+                Sizes.size10,
               ),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: width > Breakpoints.md ? 5 : 2,
                 crossAxisSpacing: Sizes.size10,
                 mainAxisSpacing: Sizes.size10,
-                childAspectRatio: 9 / 22,
+                childAspectRatio: 9 / 20,
               ),
               itemBuilder: (context, index) => LayoutBuilder(
                 builder: (context, constraints) => Column(
@@ -140,9 +140,10 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                       style: TextStyle(
                         fontSize: Sizes.size16 + Sizes.size2,
                         fontWeight: FontWeight.bold,
+                        height: 1.1,
                       ),
                     ),
-                    Gaps.v5,
+                    Gaps.v8,
                     // if (constraints.maxWidth < 200 || constraints.maxWidth > 250)
                     DefaultTextStyle(
                       style: TextStyle(
