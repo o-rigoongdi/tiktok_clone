@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok_clone/constants/gaps.dart';
 import 'package:tiktok_clone/constants/sizes.dart';
+import 'package:tiktok_clone/generated/l10n.dart';
 import 'package:tiktok_clone/screens/features/videos/widgets/video_button.dart';
 import 'package:tiktok_clone/screens/features/videos/widgets/video_comments.dart';
 import 'package:video_player/video_player.dart';
@@ -196,7 +197,8 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
                   radius: 25,
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
-                  foregroundImage: NetworkImage('https://avatars.githubusercontent.com/u/29852320?s=400&u=a64dc19ce958d91b81e109642f5d6b913317dae9&v=4'),
+                  foregroundImage: NetworkImage(
+                      'https://avatars.githubusercontent.com/u/29852320?s=400&u=a64dc19ce958d91b81e109642f5d6b913317dae9&v=4'),
                   child: Text('니꼬'),
                 ),
                 Gaps.v24,
@@ -207,16 +209,16 @@ class _VideoPostState extends State<VideoPost> with SingleTickerProviderStateMix
                   ),
                 ),
                 Gaps.v24,
-                const VideoButton(
+                VideoButton(
                   icon: FontAwesomeIcons.solidHeart,
-                  text: '2.9M',
+                  text: S.of(context).likeCount(123123123),
                 ),
                 Gaps.v24,
                 GestureDetector(
                   onTap: () => _onCommentsTap(context),
-                  child: const VideoButton(
+                  child: VideoButton(
                     icon: FontAwesomeIcons.solidComment,
-                    text: '32K',
+                    text: S.of(context).commentCount(48568),
                   ),
                 ),
                 Gaps.v24,
